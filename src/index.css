@@ -1,5 +1,0 @@
-@import "tailwindcss";
-@layer base {
-  body { @apply overflow-x-hidden; }
-  img, video, canvas, svg { @apply max-w-full h-auto; }
-}
