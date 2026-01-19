@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+/* Design */
+:root {
+  /* Layout */
+  --sidebar-collapsed-width: 88px;
+  --page-outer-gap: 16px;
+  --content-left-offset: calc(
+    var(--sidebar-collapsed-width) + var(--page-outer-gap)
+  );
+
+  /* App backgrounds */
+  --app-bg: #f8f6f1;
+  --app-bg-soft: #f3efe8;
+
+  /* Text */
+  --text-main: #0f172a; /* slate-900 */
+}
+
+/* Global Styles */
+body {
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text-main);
+
+  background:
+    radial-gradient(
+      1200px 800px at 8% 10%,
+      rgba(145, 185, 175, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      1000px 700px at 92% 20%,
+      rgba(145, 175, 200, 0.16),
+      transparent 55%
+    ),
+    var(--app-bg);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Layout Helpers */
+.layout-main {
+  padding-left: var(--content-left-offset);
+  padding-top: var(--page-outer-gap);
+  padding-right: var(--page-outer-gap);
+  padding-bottom: var(--page-outer-gap);
+}
+
+/* Utility Classes */
+.bg-app {
+  background-color: var(--app-bg);
+}
+
+.bg-app-soft {
+  background-color: var(--app-bg-soft);
+}
+
+.bg-app-bloom {
+  background:
+    radial-gradient(
+      1200px 800px at 8% 10%,
+      rgba(145, 185, 175, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      1000px 700px at 92% 20%,
+      rgba(145, 175, 200, 0.16),
+      transparent 55%
+    ),
+    var(--app-bg);
+}
