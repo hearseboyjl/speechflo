@@ -1,28 +1,35 @@
 @import "tailwindcss";
 
-html,
-body,
-#root {
-  height: 100%;
+html, body, #root {
+  min-height: 100%;
   width: 100%;
   margin: 0;
 }
 
+
 /* Design */
 :root {
-  /* Layout */
-  --sidebar-collapsed-width: 88px;
-  --page-outer-gap: 16px;
-  --content-left-offset: calc(
-    var(--sidebar-collapsed-width) + var(--page-outer-gap)
+  --app-bg: linear-gradient(
+    135deg,
+    #EBF7FD 0%,
+    #C3D5D9 25%,
+    #e9d4f5 50%,
+    #a5c1da 75%,
+    #DCDBD7 100%
   );
 
-  /* App backgrounds */
-  --app-bg: #f8f6f1;
-  --app-bg-soft: #f3efe8;
+  --app-bg-soft: linear-gradient(
+    180deg,
+    #F6FBFD 0%,
+    #EBF7FD 100%
+  );
 
   /* Text */
-  --text-main: #0f172a; /* slate-900 */
+  --text-main: #0f172a;
+
+  --sidebar-w: 96px;        
+  --content-left-offset: calc(var(--sidebar-w) + 24px);
+  --page-outer-gap: 24px;
 }
 
 /* Global Styles */
@@ -44,6 +51,10 @@ body {
     ),
     var(--app-bg);
 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -52,7 +63,7 @@ button {
   cursor: pointer;
 }
 
-/* Layout Helpers */
+/* Layout */
 .layout-main {
   padding-left: var(--content-left-offset);
   padding-top: var(--page-outer-gap);
@@ -62,24 +73,9 @@ button {
 
 /* Utility Classes */
 .bg-app {
-  background-color: var(--app-bg);
+  background: var(--app-bg);
 }
 
 .bg-app-soft {
-  background-color: var(--app-bg-soft);
-}
-
-.bg-app-bloom {
-  background:
-    radial-gradient(
-      1200px 800px at 8% 10%,
-      rgba(145, 185, 175, 0.18),
-      transparent 60%
-    ),
-    radial-gradient(
-      1000px 700px at 92% 20%,
-      rgba(145, 175, 200, 0.16),
-      transparent 55%
-    ),
-    var(--app-bg);
+  background: var(--app-bg-soft);
 }
