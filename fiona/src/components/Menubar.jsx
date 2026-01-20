@@ -122,7 +122,6 @@ export default function Menubar() {
         <div className="px-3 pb-6">
           <div
             className={[
-              // ✅ remove hover style since profile isn't clickable now
               "rounded-2xl transition",
               expanded ? "px-4 py-3.5" : "px-0 py-3",
             ].join(" ")}
@@ -133,7 +132,6 @@ export default function Menubar() {
                 expanded ? "justify-between" : "justify-center",
               ].join(" ")}
             >
-              {/* ✅ NON-clickable profile (replaces NavLink) */}
               <div
                 className={[
                   "flex items-center cursor-default select-none",
@@ -158,7 +156,7 @@ export default function Menubar() {
                 </div>
               </div>
 
-              {/* Logout stays clickable */}
+              {/* Logout */}
               <button
                 type="button"
                 onClick={handleLogout}
@@ -184,3 +182,4 @@ export default function Menubar() {
     </aside>
   );
 }
+
