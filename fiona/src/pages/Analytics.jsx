@@ -44,14 +44,29 @@ export default function Analytics() {
     console.log("Apply Filters:", filters);
   }
 
-  const statsCardCls = [
+  const kpiBg = [
+    "mt-8",
     "rounded-2xl",
-    "bg-[#2475AF]/20 backdrop-blur-md",
-    "border border-[#2475AF]/30",
-    "shadow-[0_12px_30px_rgba(15,23,42,0.08)]",
-    "hover:shadow-[0_18px_45px_rgba(15,23,42,0.12)]",
-    "transition-shadow",
+    "bg-[#77bce1]",
+    "border border-white/10",
+    "shadow-[0_18px_45px_rgba(15,23,42,0.18)]",
+    "px-4 sm:px-6", //size of the bg
+    "py-4",              
+    "flex items-center",
   ].join(" ");
+
+  const kpiTile = [
+    "rounded-xl", 
+    "bg-white",
+    "border border-slate-200/70",
+    "shadow-[0_8px_20px_rgba(15,23,42,0.10)]",
+    "px-4 py-3",
+    "min-h-[92px] sm:min-h-[110px]",
+    "w-full",
+  ].join(" ");
+  
+  const kpiLabel = "text-[12px] sm:text-[13px] font-semibold text-slate-600 leading-snug";
+  const kpiValue = "mt-1 text-xl sm:text-2xl font-extrabold text-[#0B2B4A]";
 
   const cardCls = [
     "rounded-2xl",
@@ -82,15 +97,27 @@ export default function Analytics() {
             Review performance metrics, distributions, and candidate rankings.
           </p>
 
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            {stats.map((s) => (
-              <StatCard key={s.label} {...s} cardCls={statsCardCls} />
-            ))}
+          {/* TOP KPIs */}
+          <div className={kpiBg}>
+            <div className="w-full">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                {stats.map((s) => (
+                  <StatCard
+                    key={s.label}
+                    label={s.label}
+                    value={s.value}
+                    sub={s.sub}
+                    tileCls={kpiTile}
+                    labelCls={kpiLabel}
+                    valueCls={kpiValue}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Main grid */}
           <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Blank chart card */}
             <section className={`lg:col-span-2 p-6 ${cardCls}`}>
               <h2 className="text-xl font-semibold text-slate-900">
                 Skill Validation Distribution
@@ -160,7 +187,7 @@ export default function Analytics() {
             </div>
           </div>
 
-          {/* Topic Coverage */}
+          {/* Topic */}
           <section className={`mt-8 p-6 ${cardCls}`}>
             <h2 className="text-xl font-semibold text-slate-900">Topic Coverage</h2>
             <div className="mt-4 h-[220px] rounded-xl border border-white/50 bg-white/45 backdrop-blur-sm flex items-center justify-center text-sm text-slate-500">
@@ -208,17 +235,15 @@ export default function Analytics() {
   );
 }
 
-function StatCard({ label, value, sub, cardCls }) {
+function StatCard({ label, value, sub, tileCls, labelCls, valueCls }) {
   return (
-    <div className={`${cardCls} p-5`}>
-      <div className="text-[11px] text-slate-700 leading-snug line-clamp-2">
-        {label}
-      </div>
+    <div className={tileCls}>
+      <div className={`${labelCls} line-clamp-2`}>{label}</div>
 
-      <div className="mt-2 text-2xl font-bold text-slate-900">{value}</div>
+      <div className={valueCls}>{value}</div>
 
       {sub ? (
-        <div className="mt-2 text-[10px] text-slate-600 leading-snug line-clamp-2">
+        <div className="mt-2 text-[11px] sm:text-xs text-slate-500 leading-snug line-clamp-2">
           {sub}
         </div>
       ) : null}
@@ -259,4 +284,3 @@ function SelectPill({ name, value, onChange, options }) {
     </div>
   );
 }
-
