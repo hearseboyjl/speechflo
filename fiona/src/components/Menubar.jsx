@@ -41,7 +41,7 @@ export default function Menubar() {
         expanded ? "w-[260px]" : "w-[88px]",
         "transition-all duration-300 ease-out",
         "rounded-none shadow-none ring-0",
-        "bg-gradient-to-b from-[#2F8DCD] via-[#91ADC6] to-[#2475AF]",
+        "bg-[#77bce1]",
         "border-r border-white/25",
       ].join(" ")}
     >
@@ -88,9 +88,7 @@ export default function Menubar() {
                       expanded
                         ? "flex items-center gap-3 px-4 py-3.5"
                         : "flex items-center justify-center px-0 py-3.5",
-                      isActive
-                        ? "bg-white/35"
-                        : "hover:bg-white/25",
+                      isActive ? "bg-white/35" : "hover:bg-white/25",
                     ].join(" ")
                   }
                 >
@@ -124,7 +122,8 @@ export default function Menubar() {
         <div className="px-3 pb-6">
           <div
             className={[
-              "rounded-2xl hover:bg-white/25 transition",
+              // ✅ remove hover style since profile isn't clickable now
+              "rounded-2xl transition",
               expanded ? "px-4 py-3.5" : "px-0 py-3",
             ].join(" ")}
           >
@@ -134,12 +133,13 @@ export default function Menubar() {
                 expanded ? "justify-between" : "justify-center",
               ].join(" ")}
             >
-              <NavLink
-                to="/profile"
+              {/* ✅ NON-clickable profile (replaces NavLink) */}
+              <div
                 className={[
-                  "flex items-center",
+                  "flex items-center cursor-default select-none",
                   expanded ? "gap-3" : "justify-center",
                 ].join(" ")}
+                aria-hidden="true"
               >
                 <div className="h-10 w-10 rounded-full bg-white/35 shadow-sm grid place-items-center overflow-hidden">
                   <img src={UserPfpIcon} alt="Profile" className={iconSize} />
@@ -156,8 +156,9 @@ export default function Menubar() {
                   </div>
                   <div className="text-xs text-slate-700">Recruiter</div>
                 </div>
-              </NavLink>
+              </div>
 
+              {/* Logout stays clickable */}
               <button
                 type="button"
                 onClick={handleLogout}
@@ -170,7 +171,9 @@ export default function Menubar() {
                 title="Logout"
                 aria-hidden={!expanded}
               >
-                <span className={`${iconWrap} rounded-xl hover:bg-white/20 transition`}>
+                <span
+                  className={`${iconWrap} rounded-xl hover:bg-white/20 transition`}
+                >
                   <img src={LogoutIcon} alt="Logout" className={iconSize} />
                 </span>
               </button>
