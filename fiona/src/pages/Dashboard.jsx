@@ -29,18 +29,7 @@ export default function Dashboard() {
   const cardCls = [
     "rounded-2xl",
     "bg-white/70 backdrop-blur-md",
-    "shadow-[0_12px_30px_rgba(15,23,42,0.08)]",
-    "hover:shadow-[0_18px_45px_rgba(15,23,42,0.12)]",
-    "transition-shadow",
-  ].join(" ");
-
-  const statsCardCls = [
-    "rounded-2xl",
-    // light blue 
-    "bg-[#2475AF]/20 backdrop-blur-md",
-    "border border-[#2475AF]/100",
-    "shadow-[0_12px_30px_rgba(15,23,42,0.08)]",
-    "hover:shadow-[0_18px_45px_rgba(15,23,42,0.12)]",
+    "shadow-[0_18px_45px_rgba(15,23,42,0.12)]",
     "transition-shadow",
   ].join(" ");
 
@@ -66,6 +55,30 @@ export default function Dashboard() {
     "hover:brightness-95 active:translate-y-[1px]",
     "transition",
   ].join(" ");
+
+  const kpiBg = [
+    "mt-8",
+    "rounded-2xl",
+    "bg-[#77bce1]", /* 1F6FA6 */
+    "border border-white/10",
+    "shadow-[0_18px_45px_rgba(15,23,42,0.18)]",
+    "px-4 sm:px-6",
+    "py-4",
+    "flex items-center",
+  ].join(" ");
+
+  const kpiTile = [
+    "rounded-2xl",
+    "bg-white",
+    "border border-slate-200/70",
+    "shadow-[0_10px_28px_rgba(15,23,42,0.10)]",
+    "px-4 py-4 sm:px-6 sm:py-5",
+    "min-h-[92px] sm:min-h-[110px]",
+    "w-full",
+  ].join(" ");
+
+  const kpiLabel = "text-[12px] sm:text-[13px] font-semibold text-slate-600 leading-snug";
+  const kpiValue = "mt-1 text-xl sm:text-2xl font-extrabold text-[#0B2B4A]";
 
   return (
     <div className="min-h-screen w-full bg-app">
@@ -99,16 +112,18 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* TOP STATS */}
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {stats.map((s) => (
-              <div key={s.label} className={`${statsCardCls} p-6`}>
-                <div className="text-sm text-slate-600">{s.label}</div>
-                <div className="mt-2 font-bold text-3xl text-slate-900">
-                  {s.value}
-                </div>
+          {/* TOP KPIs (centered vertically in the blue band) */}
+          <div className={kpiBg}>
+            <div className="w-full">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {stats.map((s) => (
+                  <div key={s.label} className={kpiTile}>
+                    <div className={kpiLabel}>{s.label}</div>
+                    <div className={kpiValue}>{s.value}</div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
 
           {/* MIDDLE GRID */}
