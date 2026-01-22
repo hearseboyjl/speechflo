@@ -1,0 +1,45 @@
+@import "tailwindcss";
+@layer base {
+  body { @apply overflow-x-hidden; }
+  img, video, canvas, svg { @apply max-w-full h-auto; }
+}
+
+/* Global base sizing */
+html,
+body,
+#root {
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+:root {
+ /* bg gradient */
+  --app-bg: linear-gradient(
+      to bottom right,
+      #abd7f4 0%,
+      #C4D6E3 48%,
+      #4a8fc1 100%
+    );
+    .app-bg {
+  background: var(--app-bg);
+}
+
+    --app-bg-soft: linear-gradient(
+    180deg,
+    #ebf9ff 0%,
+    #e1eaef 100%
+  );
+
+  --app-bloom-1: radial-gradient(
+    1200px 800px at 8% 10%,
+    rgba(160, 200, 230, 0.25),
+    transparent 60%
+  );
+
+  --app-bloom-2: radial-gradient(
+    1000px 700px at 92% 20%,
+    rgba(150, 190, 220, 0.22),
+    transparent 55%
+  );
+}
