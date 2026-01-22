@@ -1,73 +1,195 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Reset_Password() {
   const navigate = useNavigate();
 
+  const [email, setEmail] = useState("");
+  const [code, setCode] = useState("");
+  const [error, setError] = useState("");
+
+  const isValidEmail = (value) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+  const handleSendCode = () => {
+    if (!email) {
+      setError("Email is required.");
+      return;
+    }
+    if (!isValidEmail(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+    setError("");
+    // simulate sending code
+  };
+
+  const handleReset = (e) => {
+  e.preventDefault();
+
+  if (!email || !code) {
+    setError("Please complete all fields.");
+    return;
+  }
+
+  if (!isValidEmail(email)) {
+    setError("Invalid email address.");
+    return;
+  }
+
+  setError("");
+  navigate("/set-new-password");
+};
+
+
   return (
-    <div className="min-h-screen bg-[#eef2f5] flex items-center justify-center relative px-4">
-      
-      {/* RESET CARD */}
+    <div
+      className="min-h-screen w-full flex items-center justify-center px-6 relative overflow-hidden"
+      style={{
+        background:
+          "linear-gradient(to bottom right, #abd7f4 0%, #C4D6E3 48%, #4a8fc1 100%)",
+      }}
+    >
+      {/* BACKDROP BLUR */}
+      <div className="absolute inset-0 backdrop-blur-md bg-white/10 z-0" />
+
+      {/* GLASS CARD */}
       <div
         className="
-          w-full max-w-sm rounded-xl
-          bg-[#2475AF]
-          border border-[#1e5f8f]
-          px-6 sm:px-8 py-8 sm:py-9
-          shadow-[0_14px_40px_rgba(15,23,42,0.35)]
+          relative z-10
+          w-full max-w-5xl
+          grid grid-cols-1 lg:grid-cols-2
+          rounded-[32px]
+          bg-white/60 backdrop-blur-xl
+          shadow-[0_30px_80px_rgba(15,23,42,0.25)]
+          overflow-hidden
         "
       >
-        <h2 className="text-center text-[#f8f6f1] text-base sm:text-lg font-semibold mb-3">
-          Reset Password
-        </h2>
+        {/* LEFT SIDE */}
+        <div className="hidden lg:flex flex-col justify-center p-12">
+          <h1 className="text-2xl font-bold text-[#002853] leading-tight">
+            SpeechFlow
+          </h1>
 
-        <p className="text-center text-xs sm:text-sm text-[#f8f6f1]/85 mb-6 leading-relaxed">
-          Enter your registered email address below and we’ll send you a code to
-          reset your password.
-        </p>
+          <p className="mt-4 text-slate-600 max-w-sm">
+            Reset your password securely and regain access to your account.
+          </p>
 
-        <form className="space-y-5">
-          <div>
-            <label className="block text-xs text-[#f8f6f1]/90 mb-1">
-              Email Address
-            </label>
-            <input
-              type="email"
-              placeholder="you@example.com"
-              className="
-                w-full h-10 rounded-xl
-                bg-white px-3 text-sm text-gray-900
-                outline-none
-                focus:ring-1 focus:ring-[#2475AF]
-              "
-            />
-          </div>
+          <img
+            src="/public/Forgot_Password.png"
+            alt="Forgot Password Illustration"
+            className="
+              mt-10
+              mx-auto
+              w-full max-w-[320px]
+              object-contain
+              drop-shadow-xl
+            "
+          />
+        </div>
 
-          {/* BUTTON (FIXED) */}
-          <div className="flex justify-center pt-1">
+        {/* RIGHT FORM */}
+        <div className="p-10 sm:p-12 flex flex-col justify-center">
+          <h2 className="text-2xl font-bold text-[#002853] mb-2">
+            Reset Password
+          </h2>
+
+          <p className="text-sm text-slate-600 mb-8">
+            Enter your email and verification code.
+          </p>
+
+          <form onSubmit={handleReset} className="space-y-5">
+
+            {/* EMAIL + SEND CODE */}
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-1">
+                Email Address
+              </label>
+
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email"
+                  className="
+                    w-full h-11 px-4 rounded-xl
+                    bg-white
+                    border border-slate-200
+                    outline-none
+                    focus:ring-2 focus:ring-[#2F8DCD]/40
+                  "
+                />
+
+                <button
+                  type="button"
+                  onClick={handleSendCode}
+                  className="
+                    px-4 h-11 rounded-xl
+                    bg-[#2F8DCD]
+                    text-sm font-semibold text-white
+                    hover:bg-[#2a7fc0]
+                    transition
+                  "
+                >
+                  Send Code
+                </button>
+              </div>
+            </div>
+
+            {/* VERIFICATION CODE */}
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-1">
+                Verification Code
+              </label>
+              <input
+                type="text"
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+                placeholder="Enter the 6-digit code"
+                className="
+                  w-full h-11 px-4 rounded-xl
+                  bg-white
+                  border border-slate-200
+                  outline-none
+                  focus:ring-2 focus:ring-[#2F8DCD]/40
+                "
+              />
+            </div>
+
+            {/* ERROR */}
+            {error && (
+              <p className="text-sm text-red-500 text-center">
+                {error}
+              </p>
+            )}
+
+            {/* RESET BUTTON */}
             <button
               type="submit"
-              onClick={() => navigate("/confirm-reset")}
               className="
-                px-8 py-2 rounded-full
+                w-full h-11 rounded-xl
                 bg-[#2F8DCD]
-                text-sm font-semibold text-[#f8f6f1]
-                shadow-[0_6px_18px_rgba(47,141,205,0.45)]
-                hover:bg-[#2a7fc0]
-                active:scale-95
-                transition-all duration-300
+                text-white font-semibold
+                shadow-[0_10px_25px_rgba(47,141,205,0.35)]
+                hover:brightness-95
+                transition
               "
             >
-              Send Reset Code
+              Reset Password
             </button>
-          </div>
-        </form>
 
-        <p
-          onClick={() => navigate("/login-applicant")}
-          className="mt-4 text-center text-[11px] text-[#f8f6f1]/80 hover:underline cursor-pointer"
-        >
-          Back to Login
-        </p>
+            <p
+              onClick={() => navigate("/login-applicant")}
+              className="text-sm text-center text-slate-600 hover:underline cursor-pointer"
+            >
+              Back to Login
+            </p>
+          </form>
+            <div className="mt-8 text-center text-s text-slate-400">
+              © 2026 AvantePH
+            </div>
+        </div>
       </div>
     </div>
   );
