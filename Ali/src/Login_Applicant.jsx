@@ -40,7 +40,8 @@ export default function Login_Applicant() {
           <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
 
             {/* LEFT: Text */}
-            <div className="text-white">
+            <div className="text-white lg:pl-10">
+
               <button
                 onClick={() => navigate("/")}
                 className="inline-flex items-center text-white/90 hover:text-white text-lg font-semibold tracking-wide"
@@ -54,28 +55,28 @@ export default function Login_Applicant() {
                 Build your future.
               </h1>
 
-              <p className="mt-5 text-sm md:text-base text-white/80 max-w-md">
+              <p className="mt-6 text-base md:text-lg text-white/85 max-w-lg leading-relaxed">
                 Access job opportunities, submit applications, and track your
                 progress — all in one place.
               </p>
 
-              <div className="mt-10 text-xs text-white/60">
+              <div className="inline-flex items-center text-white/90 hover:text-white text-xl font-semibold tracking-wide">
                 © 2026 AVANTEPH
               </div>
             </div>
 
-            {/* RIGHT: Login Card */}
+            {/* RIGHT: Login Card (BIGGER CARD ONLY) */}
             <div className="lg:flex lg:justify-end">
-              <div className="w-full lg:w-[520px] rounded-[28px] bg-white/75 backdrop-blur-xl shadow-2xl border border-white/50 p-8 sm:p-10">
+              <div className="w-full lg:w-[620px] rounded-[32px] bg-white/75 backdrop-blur-xl shadow-2xl border border-white/50 p-12 sm:p-14">
                 
-                <h2 className="text-3xl font-bold text-[#002853]">
+                <h2 className="text-4xl font-bold text-[#002853]">
                   Welcome back
                 </h2>
-                <p className="mt-2 text-sm text-slate-600">
+                <p className="mt-4 text-lg text-slate-600">
                   Login to your applicant account
                 </p>
 
-                <form onSubmit={handleLogin} className="mt-8">
+                <form onSubmit={handleLogin} className="mt-12">
                   {/* Email */}
                   <div>
                     <label className="block text-sm font-semibold text-slate-700">
@@ -87,7 +88,7 @@ export default function Login_Applicant() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="you@email.com"
+                      placeholder="email"
                       className="
                         mt-2 w-full h-11 px-4 rounded-xl
                         bg-white/90 border border-slate-200
@@ -99,7 +100,7 @@ export default function Login_Applicant() {
                   </div>
 
                   {/* Password */}
-                  <div className="mt-6">
+                  <div className="mt-8">
                     <label className="block text-sm font-semibold text-slate-700">
                       Password
                     </label>
@@ -109,7 +110,7 @@ export default function Login_Applicant() {
                       required
                       value={formData.password}
                       onChange={handleChange}
-                      placeholder="••••••••"
+                      placeholder="password"
                       className="
                         mt-2 w-full h-11 px-4 rounded-xl
                         bg-white/90 border border-slate-200
@@ -121,12 +122,12 @@ export default function Login_Applicant() {
                   </div>
 
                   {/* Actions */}
-                  <div className="mt-8 flex items-center justify-between">
+                  <div className="mt-12 flex items-center justify-between">
                     <button
                       type="submit"
                       className="
-                        h-11 px-10 rounded-xl
-                        bg-[#2F8DCD] text-white font-semibold
+                        h-12 px-14 rounded-xl
+                        bg-[#2F8DCD] text-white text-base font-semibold
                         shadow-[0_8px_20px_rgba(15,23,42,0.15)]
                         hover:brightness-95
                         active:translate-y-[1px]
@@ -139,7 +140,7 @@ export default function Login_Applicant() {
                     <button
                       type="button"
                       onClick={() => navigate("/reset_password")}
-                      className="text-sm text-[#2F8DCD] hover:underline"
+                      className="text-base text-[#2F8DCD] hover:underline"
                     >
                       Forgot password?
                     </button>
