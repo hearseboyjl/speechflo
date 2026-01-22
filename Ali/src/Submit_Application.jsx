@@ -69,125 +69,179 @@ export default function Submit_Application() {
 
   const inputClass = (error) =>
     `w-full h-11 rounded-xl bg-white px-4 text-sm border
-    ${error ? "border-red-500" : "border-gray-300"}
-    outline-none
-    focus:ring-1
-    ${error ? "focus:ring-red-500" : "focus:ring-[#2475AF]"}
-    transition`;
+     ${error ? "border-red-500" : "border-[#2475AF]/70"}
+     shadow-md
+     outline-none
+     focus:ring-2
+     ${error ? "focus:ring-red-500" : "focus:ring-[#2475AF]/40"}
+     transition`;
 
   return (
-    <div className="min-h-screen bg-[#f6f8fc] px-4 sm:px-6 lg:px-8 py-8">
-      <div className="max-w-5xl mx-auto">
+    <div
+      className="relative min-h-screen px-4 sm:px-6 lg:px-8 py-10 overflow-hidden"
+      style={{
+        background:
+          "linear-gradient(to bottom right, #abd7f4 0%, #C4D6E3 48%, #4a8fc1 100%)",
+      }}
+    >
+      {/* BACKGROUND BRAND TEXT */}
+      <div className="pointer-events-none absolute inset-0 z-10">
 
-        <h1 className="text-xl sm:text-2xl font-semibold mb-6 text-[#0b1440]">
-          Submit Application
-        </h1>
+        {/* LEFT: SPEECHFLOW (SOFTER + MORE SPACING) */}
+        <div className="hidden lg:flex absolute left-8 top-1/2 -translate-y-1/2">
+          <div className="flex flex-col items-center gap-0.5">
+            {["S","P","E","E","C","H","F","L","O","W"].map((letter, index) => (
+              <span
+                key={index}
+                className="
+                  text-[52px]
+                  font-bold
+                  tracking-widest
+                  text-[#002853]/5
+                  select-none
+                "
+              >
+                {letter}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* RIGHT: AvantePH (SUBTLER) */}
+        <div className="hidden lg:flex absolute right-10 bottom-16">
+          <span
+            className="
+              text-4xl
+              font-semibold
+              tracking-wide
+              text-[#002853]/15
+              select-none
+            "
+          >
+            AvantePH
+          </span>
+        </div>
+      </div>
+
+      {/* MAIN CONTENT */}
+      <div className="relative z-20 max-w-5xl mx-auto">
 
         <form onSubmit={handleSubmit} className="space-y-6">
 
           {/* PERSONAL INFORMATION */}
-          <div className="bg-white rounded-xl border border-[#2475AF]/100 p-5 sm:p-6 shadow">
+          <div className="bg-white/75 backdrop-blur-md rounded-xl border border-[#2475AF]/80 p-6 shadow-lg">
+            <h1 className="text-lg sm:text-xl font-semibold mb-4 text-[#0b1440]">
+              Submit Application
+            </h1>
+
             <h2 className="font-semibold mb-4 text-[#0b1440]">
               Personal Information
             </h2>
 
             <div className="space-y-4">
-              <div>
-                <input
-                  name="fullName"
-                  type="text"
-                  placeholder="Full name"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  className={inputClass(errors.fullName)}
-                />
-                {errors.fullName && (
-                  <p className="text-xs text-red-500 mt-1">{errors.fullName}</p>
-                )}
-              </div>
+              <input
+                name="fullName"
+                type="text"
+                placeholder="Full name"
+                value={formData.fullName}
+                onChange={handleChange}
+                className={inputClass(errors.fullName)}
+              />
+              {errors.fullName && (
+                <p className="text-xs text-red-500">{errors.fullName}</p>
+              )}
 
-              <div>
-                <input
-                  name="email"
-                  type="email"
-                  placeholder="Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={inputClass(errors.email)}
-                />
-                {errors.email && (
-                  <p className="text-xs text-red-500 mt-1">{errors.email}</p>
-                )}
-              </div>
+              <input
+                name="email"
+                type="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+                className={inputClass(errors.email)}
+              />
+              {errors.email && (
+                <p className="text-xs text-red-500">{errors.email}</p>
+              )}
 
-              <div>
-                <input
-                  name="contact"
-                  type="tel"
-                  inputMode="numeric"
-                  maxLength={11}
-                  placeholder="Contact Number (11 digits)"
-                  value={formData.contact}
-                  onChange={(e) => {
-                    const value = e.target.value.replace(/\D/g, "");
-                    setFormData({ ...formData, contact: value });
-                    setErrors({ ...errors, contact: "" });
-                  }}
-                  className={inputClass(errors.contact)}
-                />
-                {errors.contact && (
-                  <p className="text-xs text-red-500 mt-1">{errors.contact}</p>
-                )}
-              </div>
+              <input
+                name="contact"
+                type="tel"
+                maxLength={11}
+                placeholder="Contact Number (11 digits)"
+                value={formData.contact}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, "");
+                  setFormData({ ...formData, contact: value });
+                  setErrors({ ...errors, contact: "" });
+                }}
+                className={inputClass(errors.contact)}
+              />
+              {errors.contact && (
+                <p className="text-xs text-red-500">{errors.contact}</p>
+              )}
 
-              <div>
-                <input
-                  name="position"
-                  type="text"
-                  placeholder="Position applying for"
-                  value={formData.position}
-                  onChange={handleChange}
-                  className={inputClass(errors.position)}
-                />
-                {errors.position && (
-                  <p className="text-xs text-red-500 mt-1">{errors.position}</p>
-                )}
-              </div>
+              <input
+                name="position"
+                type="text"
+                placeholder="Position applying for"
+                value={formData.position}
+                onChange={handleChange}
+                className={inputClass(errors.position)}
+              />
+              {errors.position && (
+                <p className="text-xs text-red-500">{errors.position}</p>
+              )}
             </div>
           </div>
 
           {/* UPLOADS */}
-          <div className="bg-white rounded-xl border border-[#2475AF]/100 p-5 sm:p-6 shadow">
+          <div className="bg-white/75 backdrop-blur-md rounded-xl border border-[#2475AF]/80 p-6 shadow-lg">
             <h2 className="font-semibold mb-2 text-[#0b1440]">
               Uploads
             </h2>
 
-            <p className="text-xs text-gray-600 mb-3">
+            <p className="text-xs text-gray-600 mb-4">
               Resume (PDF / DOCX)
             </p>
 
-            <input
-              name="resume"
-              type="file"
-              onChange={handleChange}
-              className={inputClass(errors.resume)}
-            />
+            <label
+              className={`
+                inline-flex items-center gap-3
+                px-6 py-3 rounded-xl
+                border-2 border-dashed
+                ${errors.resume ? "border-red-500" : "border-[#2475AF]"}
+                text-sm text-[#2475AF]
+                cursor-pointer
+                hover:bg-[#2475AF]/10
+                transition
+              `}
+            >
+              <span className="font-semibold">
+                {formData.resume ? formData.resume.name : "Choose file"}
+              </span>
+              <input
+                type="file"
+                name="resume"
+                onChange={handleChange}
+                className="hidden"
+              />
+            </label>
+
             {errors.resume && (
-              <p className="text-xs text-red-500 mt-1">{errors.resume}</p>
+              <p className="text-xs text-red-500 mt-2">{errors.resume}</p>
             )}
 
-            {/* BUTTON */}
             <div className="flex justify-end mt-6">
               <button
                 type="submit"
                 className="
                   px-8 py-2 rounded-full
                   bg-[#2F8DCD]
-                  text-sm font-semibold text-[#f8f6f1]
+                  text-sm font-semibold text-white
                   shadow-[0_6px_18px_rgba(47,141,205,0.45)]
                   hover:bg-[#2a7fc0]
                   active:scale-95
-                  transition-all duration-300
+                  transition-all
                 "
               >
                 Submit Application
@@ -197,17 +251,17 @@ export default function Submit_Application() {
         </form>
 
         {/* AFTER SUBMISSION */}
-        <div className="bg-white rounded-xl border border-[#2475AF]/100 p-5 sm:p-6 shadow mt-6">
+        <div className="bg-white/75 backdrop-blur-md rounded-xl border border-[#2475AF]/80 p-6 shadow-lg mt-6">
           <h2 className="font-semibold mb-2 text-[#0b1440]">
             After Submission
           </h2>
 
           <p className="text-xs text-gray-700 leading-relaxed">
-            Your application will be stored and made available to AvantePH
-            recruiters. Shortlisted applicants will receive scheduling details
-            via email. Track updates via the Application Status page.
+            Your application will be reviewed by AvantePH recruiters.
+            Shortlisted applicants will be contacted via email.
           </p>
         </div>
+
       </div>
     </div>
   );
