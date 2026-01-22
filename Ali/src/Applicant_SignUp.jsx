@@ -1,261 +1,157 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Applicant_SignUp() {
+export default function Login_Applicant() {
   const navigate = useNavigate();
 
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showTerms, setShowTerms] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const [formData, setFormData] = useState({
-    fullName: "",
     email: "",
     password: "",
-    confirmPassword: "",
-    termsAccepted: false,
   });
 
-  const [errors, setErrors] = useState({});
-
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
-    setErrors({ ...errors, [name]: "" });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const validate = () => {
-    const newErrors = {};
-
-    if (!/^[A-Za-z\s]+$/.test(formData.fullName)) {
-      newErrors.fullName = "Full name must contain letters only";
-    }
-    if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      newErrors.email = "Enter a valid email address";
-    }
-    if (formData.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters";
-    }
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
-    }
-    if (!formData.termsAccepted) {
-      newErrors.termsAccepted =
-        "You must agree to the Terms and Conditions";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e) => {
+  function handleLogin(e) {
     e.preventDefault();
-    if (validate()) setShowSuccess(true);
-  };
-
-  const inputClass = (field) =>
-    `w-full h-10 rounded-xl bg-white px-3 text-sm border ${
-      errors[field] ? "border-red-500" : "border-gray-300"
-    } focus:outline-none focus:ring-1 ${
-      errors[field] ? "focus:ring-red-500" : "focus:ring-[#2475AF]"
-    } transition`;
+    navigate("/submit-application");
+  }
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 bg-[#f6f8fc]">
-
-      {/* BACKGROUND DECOR */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 -left-40 w-[420px] h-[420px] 
-          bg-[#2F8DCD]/20 rounded-full blur-3xl
-          animate-[float_10s_ease-in-out_infinite]" />
-
-        <div className="absolute -bottom-40 -right-40 w-[420px] h-[420px] 
-          bg-[#2475AF]/20 rounded-full blur-3xl
-          animate-[float_14s_ease-in-out_infinite]" />
-      </div>
-
-      {/* SIGN UP CARD – SOLID BLUE */}
+    <div className="min-h-screen w-full relative overflow-hidden">
+      {/* Background image */}
       <div
-        className={`relative z-10 w-full max-w-sm rounded-xl
-        bg-[#2475AF]
-        border border-[#1e5f8f]
-        px-6 py-7
-        shadow-[0_14px_40px_rgba(15,23,42,0.35)]
-        hover:shadow-[0_20px_55px_rgba(15,23,42,0.45)]
-        transition-all duration-700 ease-out overflow-hidden
-        ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}
-        ${showTerms ? "blur-sm pointer-events-none" : ""}`}
-      >
+        className="absolute inset-0"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
 
-        {/* CONTENT */}
-        <div className="relative z-10">
-          <h2 className="text-center text-[#f8f6f1] text-lg font-semibold mb-6">
-            Register an account
-          </h2>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#002853]/40 via-[#2F8DCD]/15 to-white/15" />
 
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            {/* NAME */}
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-xs text-[#f8f6f1]/90 mb-1">
-                  First Name
-                </label>
-                <input
-                  name="fullName"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  className={inputClass("fullName")}
-                  placeholder="First name"
-                />
-                {errors.fullName && (
-                  <p className="text-xs text-red-200 mt-1">
-                    {errors.fullName}
-                  </p>
-                )}
-              </div>
+      {/* Content */}
+      <div className="relative z-10 min-h-screen">
+        <div className="mx-auto max-w-[1200px] min-h-screen px-6 md:px-10 py-10 flex items-center">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
 
-              <div>
-                <label className="block text-xs text-[#f8f6f1]/90 mb-1">
-                  Last Name
-                </label>
-                <input
-                  className="w-full h-10 rounded-xl bg-white px-3 text-sm border border-gray-300
-                  focus:outline-none focus:ring-1 focus:ring-[#2475AF] transition"
-                  placeholder="Last name"
-                />
-              </div>
-            </div>
+            {/* LEFT: Text */}
+            <div className="text-white lg:pl-10">
 
-            {/* EMAIL */}
-            <div>
-              <label className="block text-xs text-[#f8f6f1]/90 mb-1">
-                Email Address
-              </label>
-              <input
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className={inputClass("email")}
-                placeholder="Enter your email"
-              />
-              {errors.email && (
-                <p className="text-xs text-red-200 mt-1">
-                  {errors.email}
-                </p>
-              )}
-            </div>
-
-            {/* PASSWORD */}
-            <div>
-              <label className="block text-xs text-[#f8f6f1]/90 mb-1">
-                Password
-              </label>
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                className={inputClass("password")}
-              />
-              {errors.password && (
-                <p className="text-xs text-red-200 mt-1">
-                  {errors.password}
-                </p>
-              )}
-            </div>
-
-            {/* CONFIRM PASSWORD */}
-            <div>
-              <label className="block text-xs text-[#f8f6f1]/90 mb-1">
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                className={inputClass("confirmPassword")}
-              />
-              {errors.confirmPassword && (
-                <p className="text-xs text-red-200 mt-1">
-                  {errors.confirmPassword}
-                </p>
-              )}
-            </div>
-
-            {/* TERMS */}
-            <div>
-              <label className="flex items-start gap-2 text-xs text-[#f8f6f1]/90">
-                <input
-                  type="checkbox"
-                  name="termsAccepted"
-                  checked={formData.termsAccepted}
-                  onChange={handleChange}
-                  className="mt-1"
-                />
-                <span>
-                  I agree to the{" "}
-                  <span
-                    className="underline cursor-pointer"
-                    onClick={() => setShowTerms(true)}
-                  >
-                    Terms and Conditions
-                  </span>
-                </span>
-              </label>
-              {errors.termsAccepted && (
-                <p className="text-xs text-red-200 mt-1">
-                  {errors.termsAccepted}
-                </p>
-              )}
-            </div>
-
-            {/* BUTTON */}
-            <div className="flex justify-center pt-2">
               <button
-                type="submit"
-                className="px-8 py-2 rounded-full
-                bg-[#2F8DCD]
-                text-[#f8f6f1] font-semibold
-                shadow-[0_6px_18px_rgba(47,141,205,0.45)]
-                hover:bg-[#2a7fc0]
-                hover:shadow-[0_10px_24px_rgba(47,141,205,0.6)]
-                active:scale-95
-                transition-all duration-300"
+                onClick={() => navigate("/")}
+                className="inline-flex items-center text-white/90 hover:text-white text-lg font-semibold tracking-wide"
               >
-                Sign Up
+                AVANTEPH
               </button>
-            </div>
-          </form>
 
-          <p className="text-center text-[11px] text-[#f8f6f1]/85 mt-4">
-            Already have an account?{" "}
-            <span
-              className="underline cursor-pointer"
-              onClick={() => navigate("/login-applicant")}
-            >
-              Login here
-            </span>
-          </p>
+              <h1 className="mt-14 text-4xl md:text-5xl font-bold leading-tight drop-shadow-sm">
+                Apply smarter.
+                <br />
+                Build your future.
+              </h1>
+
+              <p className="mt-6 text-base md:text-lg text-white/85 max-w-lg leading-relaxed">
+                Access job opportunities, submit applications, and track your
+                progress — all in one place.
+              </p>
+
+              <div className="inline-flex items-center text-white/90 hover:text-white text-xl font-semibold tracking-wide">
+                © 2026 AVANTEPH
+              </div>
+            </div>
+
+            {/* RIGHT: Login Card (BIGGER CARD ONLY) */}
+            <div className="lg:flex lg:justify-end">
+              <div className="w-full lg:w-[620px] rounded-[32px] bg-white/75 backdrop-blur-xl shadow-2xl border border-white/50 p-12 sm:p-14">
+                
+                <h2 className="text-4xl font-bold text-[#002853]">
+                  Welcome back
+                </h2>
+                <p className="mt-4 text-lg text-slate-600">
+                  Login to your applicant account
+                </p>
+
+                <form onSubmit={handleLogin} className="mt-12">
+                  {/* Email */}
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="email"
+                      className="
+                        mt-2 w-full h-11 px-4 rounded-xl
+                        bg-white/90 border border-slate-200
+                        shadow-sm outline-none
+                        focus:ring-2 focus:ring-[#2F8DCD]/30
+                        focus:border-[#2F8DCD]/40
+                      "
+                    />
+                  </div>
+
+                  {/* Password */}
+                  <div className="mt-8">
+                    <label className="block text-sm font-semibold text-slate-700">
+                      Password
+                    </label>
+                    <input
+                      type="password"
+                      name="password"
+                      required
+                      value={formData.password}
+                      onChange={handleChange}
+                      placeholder="password"
+                      className="
+                        mt-2 w-full h-11 px-4 rounded-xl
+                        bg-white/90 border border-slate-200
+                        shadow-sm outline-none
+                        focus:ring-2 focus:ring-[#2F8DCD]/30
+                        focus:border-[#2F8DCD]/40
+                      "
+                    />
+                  </div>
+
+                  {/* Actions */}
+                  <div className="mt-12 flex items-center justify-between">
+                    <button
+                      type="submit"
+                      className="
+                        h-12 px-14 rounded-xl
+                        bg-[#2F8DCD] text-white text-base font-semibold
+                        shadow-[0_8px_20px_rgba(15,23,42,0.15)]
+                        hover:brightness-95
+                        active:translate-y-[1px]
+                        transition-all
+                      "
+                    >
+                      Login
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => navigate("/reset_password")}
+                      className="text-base text-[#2F8DCD] hover:underline"
+                    >
+                      Forgot password?
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            {/* end right */}
+          </div>
         </div>
       </div>
-
-      {/* FLOAT ANIMATION */}
-      <style>
-        {`
-          @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-25px); }
-          }
-        `}
-      </style>
     </div>
   );
 }
