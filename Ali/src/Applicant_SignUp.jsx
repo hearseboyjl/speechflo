@@ -1,155 +1,248 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Login_Applicant() {
+export default function Applicant_SignUp() {
   const navigate = useNavigate();
+  const [showTerms, setShowTerms] = useState(false);
 
   const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
+    confirmPassword: "",
+    termsAccepted: false,
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  function handleLogin(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/submit-application");
-  }
+
+    if (!formData.termsAccepted) {
+      alert("Please accept the Terms & Conditions.");
+      return;
+    }
+
+    navigate("/login");
+  };
 
   return (
-    <div className="min-h-screen w-full relative overflow-hidden">
-      {/* Background image */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
+    <div
+      className="min-h-screen w-full flex items-center justify-center px-6 relative"
+      style={{
+        background:
+          "linear-gradient(to bottom right, #abd7f4 0%, #C4D6E3 48%, #4a8fc1 100%)",
+      }}
+    >
+      {/* BACKDROP */}
+      {showTerms && (
+        <div className="fixed inset-0 backdrop-blur-md bg-black/40 z-40" />
+      )}
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#002853]/40 via-[#2F8DCD]/15 to-white/15" />
+      {/* TERMS MODAL */}
+      {showTerms && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl">
+            <h3 className="text-xl font-bold text-[#002853] mb-4">
+              Terms & Conditions
+            </h3>
 
-      {/* Content */}
-      <div className="relative z-10 min-h-screen">
-        <div className="mx-auto max-w-[1200px] min-h-screen px-6 md:px-10 py-10 flex items-center">
-          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-
-            {/* LEFT: Text */}
-            <div className="text-white lg:pl-10">
-
-              <button
-                onClick={() => navigate("/")}
-                className="inline-flex items-center text-white/90 hover:text-white text-lg font-semibold tracking-wide"
-              >
-                AVANTEPH
-              </button>
-
-              <h1 className="mt-14 text-4xl md:text-5xl font-bold leading-tight drop-shadow-sm">
-                Apply smarter.
-                <br />
-                Build your future.
-              </h1>
-
-              <p className="mt-6 text-base md:text-lg text-white/85 max-w-lg leading-relaxed">
-                Access job opportunities, submit applications, and track your
-                progress — all in one place.
+            <div className="text-sm text-slate-600 max-h-60 overflow-y-auto space-y-3">
+              <p>
+                By creating an account and using AvantePH, you agree to comply with these
+                Terms and Conditions. AvantePH provides digital tools and services intended
+                to support company operations, recruitment processes, and related business
+                activities.
               </p>
 
-              <div className="inline-flex items-center text-white/90 hover:text-white text-xl font-semibold tracking-wide">
-                © 2026 AVANTEPH
+              <p>
+                You confirm that all information, files, and data you submit through the
+                platform are accurate, lawful, and provided with proper authorization.
+                You grant AvantePH permission to collect, store, process, and use this data
+                for operational, analytical, and service-improvement purposes.
+              </p>
+
+              <p>
+                Any data collected may be used to improve platform performance, enhance
+                user experience, support internal evaluations, and generate insights
+                relevant to company processes. AvantePH will not sell or disclose personal
+                data to unauthorized third parties without consent, except when required
+                by law.
+              </p>
+
+              <p>
+                You acknowledge that system-generated outputs, insights, or recommendations
+                are provided for informational and support purposes only and should not be
+                relied upon as the sole basis for critical business or employment decisions.
+              </p>
+
+              <p>
+                All user data, records, and system-generated content are treated as
+                confidential and are accessible only to authorized personnel. Any misuse
+                of the platform, violation of company policies, or unlawful activity may
+                result in suspension or termination of access.
+              </p>
               </div>
+            <div className="mt-6 flex justify-end">
+              <button
+                onClick={() => setShowTerms(false)}
+                className="px-6 h-10 rounded-xl bg-[#2F8DCD] text-white font-semibold"
+              >
+                Close
+              </button>
             </div>
-
-            {/* RIGHT: Login Card (BIGGER CARD ONLY) */}
-            <div className="lg:flex lg:justify-end">
-              <div className="w-full lg:w-[620px] rounded-[32px] bg-white/75 backdrop-blur-xl shadow-2xl border border-white/50 p-12 sm:p-14">
-                
-                <h2 className="text-4xl font-bold text-[#002853]">
-                  Welcome back
-                </h2>
-                <p className="mt-4 text-lg text-slate-600">
-                  Login to your applicant account
-                </p>
-
-                <form onSubmit={handleLogin} className="mt-12">
-                  {/* Email */}
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="email"
-                      className="
-                        mt-2 w-full h-11 px-4 rounded-xl
-                        bg-white/90 border border-slate-200
-                        shadow-sm outline-none
-                        focus:ring-2 focus:ring-[#2F8DCD]/30
-                        focus:border-[#2F8DCD]/40
-                      "
-                    />
-                  </div>
-
-                  {/* Password */}
-                  <div className="mt-8">
-                    <label className="block text-sm font-semibold text-slate-700">
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      name="password"
-                      required
-                      value={formData.password}
-                      onChange={handleChange}
-                      placeholder="password"
-                      className="
-                        mt-2 w-full h-11 px-4 rounded-xl
-                        bg-white/90 border border-slate-200
-                        shadow-sm outline-none
-                        focus:ring-2 focus:ring-[#2F8DCD]/30
-                        focus:border-[#2F8DCD]/40
-                      "
-                    />
-                  </div>
-
-                  {/* Actions */}
-                  <div className="mt-12 flex items-center justify-between">
-                    <button
-                      type="submit"
-                      className="
-                        h-12 px-14 rounded-xl
-                        bg-[#2F8DCD] text-white text-base font-semibold
-                        shadow-[0_8px_20px_rgba(15,23,42,0.15)]
-                        hover:brightness-95
-                        active:translate-y-[1px]
-                        transition-all
-                      "
-                    >
-                      Login
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => navigate("/reset_password")}
-                      className="text-base text-[#2F8DCD] hover:underline"
-                    >
-                      Forgot password?
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-            {/* end right */}
           </div>
+        </div>
+      )}
+
+      {/* MAIN CONTAINER */}
+      <div className="relative z-10 w-full max-w-none grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        
+        {/* LEFT IMAGE */}
+        <div className="hidden lg:flex justify-center items-center translate-x-32">
+          <img
+            src="/Applicant_SignUp.png"
+            alt="Applicant Signup Illustration"
+            className="
+              w-full
+              max-w-[720px]
+              xl:max-w-[820px]
+              2xl:max-w-[900px]
+              drop-shadow-2xl
+            "
+          />
+        </div>
+
+        {/* RIGHT SIGNUP CARD */}
+        <div className="flex justify-center">
+          <div className="w-full max-w-[520px] rounded-[28px] bg-white/70 backdrop-blur-xl shadow-2xl border border-white/50 p-8 sm:p-10">
+            <h2 className="text-3xl font-bold text-[#002853]">
+              Create an account
+            </h2>
+            <p className="mt-2 text-sm text-slate-600">
+              Sign up to start your application
+            </p>
+
+            <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+              
+              {/* NAME */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  name="firstName"
+                  required
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  placeholder="First name"
+                  className="h-11 px-4 rounded-xl bg-white/90 border border-slate-200"
+                />
+                <input
+                  type="text"
+                  name="lastName"
+                  required
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  placeholder="Last name"
+                  className="h-11 px-4 rounded-xl bg-white/90 border border-slate-200"
+                />
+              </div>
+
+              {/* EMAIL */}
+              <input
+                type="email"
+                name="email"
+                required
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Email address"
+                className="w-full h-11 px-4 rounded-xl bg-white/90 border border-slate-200"
+              />
+
+              {/* PASSWORD */}
+              <input
+                type="password"
+                name="password"
+                required
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Password"
+                className="w-full h-11 px-4 rounded-xl bg-white/90 border border-slate-200"
+              />
+
+              {/* CONFIRM PASSWORD */}
+              <input
+                type="password"
+                name="confirmPassword"
+                required
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                placeholder="Confirm password"
+                className="w-full h-11 px-4 rounded-xl bg-white/90 border border-slate-200"
+              />
+
+              {/* TERMS TOGGLE */}
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-slate-600">
+                  I agree to the{" "}
+                  <button
+                    type="button"
+                    onClick={() => setShowTerms(true)}
+                    className="text-[#2F8DCD] font-semibold hover:underline"
+                  >
+                    Terms & Conditions
+                  </button>
+                </span>
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    setFormData({
+                      ...formData,
+                      termsAccepted: !formData.termsAccepted,
+                    })
+                  }
+                  className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors ${
+                    formData.termsAccepted
+                      ? "bg-[#2F8DCD]"
+                      : "bg-slate-300"
+                  }`}
+                >
+                  <div
+                    className={`bg-white w-4 h-4 rounded-full transform transition-transform ${
+                      formData.termsAccepted ? "translate-x-6" : ""
+                    }`}
+                  />
+                </button>
+              </div>
+
+              {/* SUBMIT */}
+              <button
+                type="submit"
+                className="w-full h-11 rounded-xl bg-[#2F8DCD] text-white font-semibold"
+              >
+                Create Account
+              </button>
+
+              {/* LOGIN */}
+              <p className="text-sm text-center text-slate-600">
+                Already have an account?{" "}
+                <button
+                  type="button"
+                  onClick={() => navigate("/login-applicant")}
+                  className="text-[#2F8DCD] font-semibold hover:underline"
+                >
+                  Login
+                </button>
+              </p>
+            </form>
+            <div className="mt-8 text-center text-s text-slate-400">
+              © 2026 AvantePH
+            </div>
+            </div>
         </div>
       </div>
     </div>
