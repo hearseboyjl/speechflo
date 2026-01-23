@@ -222,7 +222,7 @@ export default function Submit_Application() {
         </form>
 
         {/* FOOTER */}
-        <div className="mt-10 text-center text-xs text-slate-400">
+        <div className="mt-10 text-center text-s text-slate-500">
           © 2026 AvantePH
         </div>
       </div>
