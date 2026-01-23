@@ -57,7 +57,7 @@ export default function Set_New_Password() {
         {/* LEFT IMAGE */}
         <div className="hidden lg:flex justify-center items-center p-12">
           <img
-            src="/public/Set_New_Password.png"
+            src="/Set_New_Password.png"
             alt="Set New Password Illustration"
             className="
               w-full
