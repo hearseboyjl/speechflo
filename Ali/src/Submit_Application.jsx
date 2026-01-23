@@ -70,8 +70,7 @@ export default function Submit_Application() {
   const inputClass = (error) =>
     `w-full h-11 rounded-xl bg-white px-4 text-sm border
      ${error ? "border-red-500" : "border-[#2475AF]/70"}
-     shadow-md
-     outline-none
+     shadow-md outline-none
      focus:ring-2
      ${error ? "focus:ring-red-500" : "focus:ring-[#2475AF]/40"}
      transition`;
@@ -84,57 +83,16 @@ export default function Submit_Application() {
           "linear-gradient(to bottom right, #abd7f4 0%, #C4D6E3 48%, #4a8fc1 100%)",
       }}
     >
-      {/* BACKGROUND BRAND TEXT */}
-      <div className="pointer-events-none absolute inset-0 z-10">
-
-        {/* LEFT: SPEECHFLOW (SOFTER + MORE SPACING) */}
-        <div className="hidden lg:flex absolute left-8 top-1/2 -translate-y-1/2">
-          <div className="flex flex-col items-center gap-0.5">
-            {["S","P","E","E","C","H","F","L","O","W"].map((letter, index) => (
-              <span
-                key={index}
-                className="
-                  text-[52px]
-                  font-bold
-                  tracking-widest
-                  text-[#002853]/5
-                  select-none
-                "
-              >
-                {letter}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* RIGHT: AvantePH (SUBTLER) */}
-        <div className="hidden lg:flex absolute right-10 bottom-16">
-          <span
-            className="
-              text-4xl
-              font-semibold
-              tracking-wide
-              text-[#002853]/15
-              select-none
-            "
-          >
-            AvantePH
-          </span>
-        </div>
-      </div>
-
-      {/* MAIN CONTENT */}
       <div className="relative z-20 max-w-5xl mx-auto">
+        {/* BRAND TITLE */}
+        <h1 className="text-2xl font-bold text-[#0b1440] mb-6">
+          AvantePH
+        </h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-
           {/* PERSONAL INFORMATION */}
           <div className="bg-white/75 backdrop-blur-md rounded-xl border border-[#2475AF]/80 p-6 shadow-lg">
-            <h1 className="text-lg sm:text-xl font-semibold mb-4 text-[#0b1440]">
-              Submit Application
-            </h1>
-
-            <h2 className="font-semibold mb-4 text-[#0b1440]">
+            <h2 className="text-lg font-semibold mb-4 text-[#0b1440]">
               Personal Information
             </h2>
 
@@ -230,38 +188,43 @@ export default function Submit_Application() {
             {errors.resume && (
               <p className="text-xs text-red-500 mt-2">{errors.resume}</p>
             )}
+          </div>
 
-            <div className="flex justify-end mt-6">
-              <button
-                type="submit"
-                className="
-                  px-8 py-2 rounded-full
-                  bg-[#2F8DCD]
-                  text-sm font-semibold text-white
-                  shadow-[0_6px_18px_rgba(47,141,205,0.45)]
-                  hover:bg-[#2a7fc0]
-                  active:scale-95
-                  transition-all
-                "
-              >
-                Submit Application
-              </button>
-            </div>
+          {/* AFTER SUBMISSION */}
+          <div className="bg-white/75 backdrop-blur-md rounded-xl border border-[#2475AF]/80 p-6 shadow-lg">
+            <h2 className="font-semibold mb-2 text-[#0b1440]">
+              After Submission
+            </h2>
+
+            <p className="text-xs text-gray-700 leading-relaxed">
+              Your application will be reviewed by AvantePH recruiters.
+              Shortlisted applicants will be contacted via email.
+            </p>
+          </div>
+
+          {/* SUBMIT */}
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              className="
+                px-8 py-2 rounded-full
+                bg-[#2F8DCD]
+                text-sm font-semibold text-white
+                shadow-[0_6px_18px_rgba(47,141,205,0.45)]
+                hover:bg-[#2a7fc0]
+                active:scale-95
+                transition-all
+              "
+            >
+              Submit Application
+            </button>
           </div>
         </form>
 
-        {/* AFTER SUBMISSION */}
-        <div className="bg-white/75 backdrop-blur-md rounded-xl border border-[#2475AF]/80 p-6 shadow-lg mt-6">
-          <h2 className="font-semibold mb-2 text-[#0b1440]">
-            After Submission
-          </h2>
-
-          <p className="text-xs text-gray-700 leading-relaxed">
-            Your application will be reviewed by AvantePH recruiters.
-            Shortlisted applicants will be contacted via email.
-          </p>
+        {/* FOOTER */}
+        <div className="mt-10 text-center text-xs text-slate-400">
+          © 2026 AvantePH
         </div>
-
       </div>
     </div>
   );
