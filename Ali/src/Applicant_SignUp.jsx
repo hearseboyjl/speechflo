@@ -14,30 +14,53 @@ export default function Applicant_SignUp() {
     termsAccepted: false,
   });
 
+  const [errors, setErrors] = useState({});
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: "" });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    let newErrors = {};
+
     if (!formData.termsAccepted) {
-      alert("Please accept the Terms & Conditions.");
+      newErrors.termsAccepted = "Please accept the Terms & Conditions.";
+    }
+
+    if (formData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters long.";
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match.";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
 
-    navigate("/login");
+    navigate("/login-applicant");
   };
 
   return (
     <div
       className="min-h-screen w-full flex items-center justify-center px-6 relative"
       style={{
-        background:
-          "linear-gradient(to bottom right, #abd7f4 0%, #C4D6E3 48%, #4a8fc1 100%)",
+        backgroundImage:
+          "url('https://images.pexels.com/photos/7653970/pexels-photo-7653970.jpeg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
+      {/* OVERLAY */}
+      <div className="absolute inset-0 bg-black/30 z-0" />
+
       {/* BACKDROP */}
       {showTerms && (
         <div className="fixed inset-0 backdrop-blur-md bg-black/40 z-40" />
@@ -86,7 +109,8 @@ export default function Applicant_SignUp() {
                 of the platform, violation of company policies, or unlawful activity may
                 result in suspension or termination of access.
               </p>
-              </div>
+            </div>
+
             <div className="mt-6 flex justify-end">
               <button
                 onClick={() => setShowTerms(false)}
@@ -101,23 +125,8 @@ export default function Applicant_SignUp() {
 
       {/* MAIN CONTAINER */}
       <div className="relative z-10 w-full max-w-none grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        
-        {/* LEFT IMAGE */}
-        <div className="hidden lg:flex justify-center items-center translate-x-32">
-          <img
-            src="/Applicant_SignUp.png"
-            alt="Applicant Signup Illustration"
-            className="
-              w-full
-              max-w-[720px]
-              xl:max-w-[820px]
-              2xl:max-w-[900px]
-              drop-shadow-2xl
-            "
-          />
-        </div>
+        <div className="hidden lg:block" />
 
-        {/* RIGHT SIGNUP CARD */}
         <div className="flex justify-center">
           <div className="w-full max-w-[520px] rounded-[28px] bg-white/70 backdrop-blur-xl shadow-2xl border border-white/50 p-8 sm:p-10">
             <h2 className="text-3xl font-bold text-[#002853]">
@@ -128,7 +137,6 @@ export default function Applicant_SignUp() {
             </p>
 
             <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-              
               {/* NAME */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input
@@ -163,28 +171,48 @@ export default function Applicant_SignUp() {
               />
 
               {/* PASSWORD */}
-              <input
-                type="password"
-                name="password"
-                required
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Password"
-                className="w-full h-11 px-4 rounded-xl bg-white/90 border border-slate-200"
-              />
+              <div>
+                <input
+                  type="password"
+                  name="password"
+                  required
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Password"
+                  className={`w-full h-11 px-4 rounded-xl bg-white/90 border ${
+                    errors.password ? "border-red-500" : "border-slate-200"
+                  }`}
+                />
+                {errors.password && (
+                  <p className="mt-1 text-xs text-red-500">
+                    {errors.password}
+                  </p>
+                )}
+              </div>
 
               {/* CONFIRM PASSWORD */}
-              <input
-                type="password"
-                name="confirmPassword"
-                required
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                placeholder="Confirm password"
-                className="w-full h-11 px-4 rounded-xl bg-white/90 border border-slate-200"
-              />
+              <div>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  required
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  placeholder="Confirm password"
+                  className={`w-full h-11 px-4 rounded-xl bg-white/90 border ${
+                    errors.confirmPassword
+                      ? "border-red-500"
+                      : "border-slate-200"
+                  }`}
+                />
+                {errors.confirmPassword && (
+                  <p className="mt-1 text-xs text-red-500">
+                    {errors.confirmPassword}
+                  </p>
+                )}
+              </div>
 
-              {/* TERMS TOGGLE */}
+              {/* TERMS */}
               <div className="flex items-center justify-between">
                 <span className="text-sm text-slate-600">
                   I agree to the{" "}
@@ -219,6 +247,12 @@ export default function Applicant_SignUp() {
                 </button>
               </div>
 
+              {errors.termsAccepted && (
+                <p className="text-xs text-red-500 mt-1">
+                  {errors.termsAccepted}
+                </p>
+              )}
+
               {/* SUBMIT */}
               <button
                 type="submit"
@@ -239,10 +273,11 @@ export default function Applicant_SignUp() {
                 </button>
               </p>
             </form>
-            <div className="mt-8 text-center text-s text-slate-400">
+
+            <div className="mt-8 text-center text-xs text-slate-400">
               © 2026 AvantePH
             </div>
-            </div>
+          </div>
         </div>
       </div>
     </div>
