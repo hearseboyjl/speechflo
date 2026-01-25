@@ -42,13 +42,6 @@ export default function Login_Applicant() {
             {/* LEFT: Text */}
             <div className="text-white lg:pl-10">
 
-              <button
-                onClick={() => navigate("/")}
-                className="inline-flex items-center text-white/90 hover:text-white text-lg font-semibold tracking-wide"
-              >
-                AVANTEPH
-              </button>
-
               <h1 className="mt-14 text-4xl md:text-5xl font-bold leading-tight drop-shadow-sm">
                 Apply smarter.
                 <br />
@@ -60,7 +53,7 @@ export default function Login_Applicant() {
                 progress — all in one place.
               </p>
 
-              <div className="inline-flex items-center text-white/90 hover:text-white text-xl font-semibold tracking-wide">
+              <div className="inline-flex items-center text-white/700 hover:text-white text-m font-semibold tracking-wide">
                 © 2026 AVANTEPH
               </div>
             </div>
