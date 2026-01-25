@@ -1,16 +1,20 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function My_Applications() {
   const navigate = useNavigate();
 
-  const applications = [
+  const [applications, setApplications] = useState([
     {
       id: 1,
       position: "Frontend Developer",
       date: "2025-09-28",
       status: "Received",
     },
-  ];
+  ]);
+
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [selectedAppId, setSelectedAppId] = useState(null);
 
   const IconBox = ({ src, alt }) => (
     <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
@@ -18,45 +22,48 @@ export default function My_Applications() {
     </div>
   );
 
+  const handleWithdrawClick = (id) => {
+    setSelectedAppId(id);
+    setShowConfirm(true);
+  };
+
+  const handleConfirmWithdraw = () => {
+    setApplications((prev) =>
+      prev.filter((app) => app.id !== selectedAppId)
+    );
+    setShowConfirm(false);
+    setSelectedAppId(null);
+  };
+
+  const handleCancelWithdraw = () => {
+    setShowConfirm(false);
+    setSelectedAppId(null);
+  };
+
   return (
     <div className="min-h-screen flex bg-[#f3f4f6]">
       {/* SIDEBAR */}
       <div
         className="
-          group
-          fixed top-0 left-0 h-full z-30
+          group fixed top-0 left-0 h-full z-30
           transition-all duration-300
           w-16 hover:w-56
-          shadow-xl
-          bg-[#77bce1]
+          shadow-xl bg-[#77bce1]
         "
       >
         <div className="flex flex-col h-full py-6">
-          {/* HEADER (LOGO ONLY – BIG ON EXPAND) */}
           <div className="px-3 mb-10 flex justify-center group-hover:justify-start">
             <img
               src="/AvantePH_logo.png"
               alt="AvantePH"
-              className="
-                hidden group-hover:block
-                h-16
-                w-auto
-              "
+              className="hidden group-hover:block h-16 w-auto"
             />
           </div>
 
-          {/* MENU */}
           <div className="flex flex-col gap-3 px-3">
-            {/* MY PROFILE (NOW FIRST) */}
             <button
-              onClick={() => navigate("/my-profile")}
-              className="
-                flex items-center gap-3
-                text-[#0b1440] text-sm
-                hover:bg-white/40
-                rounded-lg
-                transition
-              "
+              onClick={() => navigate("/old_applicant")}
+              className="flex items-center gap-3 text-[#0b1440] text-sm hover:bg-white/40 rounded-lg transition"
             >
               <IconBox src="/profile_icon.png" alt="My Profile" />
               <span className="hidden group-hover:block whitespace-nowrap">
@@ -64,39 +71,21 @@ export default function My_Applications() {
               </span>
             </button>
 
-            {/* MY APPLICATIONS (NOW SECOND) */}
             <button
               onClick={() => navigate("/my_applications")}
-              className="
-                flex items-center gap-3
-                text-[#0b1440] text-sm
-                hover:bg-white/40
-                rounded-lg
-                transition
-              "
+              className="flex items-center gap-3 text-[#0b1440] text-sm hover:bg-white/40 rounded-lg transition"
             >
-              <IconBox
-                src="/my_applications_icon.png"
-                alt="My Applications"
-              />
+              <IconBox src="/my_applications_icon.png" alt="My Applications" />
               <span className="hidden group-hover:block whitespace-nowrap">
                 My Applications
               </span>
             </button>
           </div>
 
-          {/* LOGOUT */}
           <div className="mt-auto px-3">
             <button
               onClick={() => navigate("/login-applicant")}
-              className="
-                w-full
-                flex items-center gap-3
-                text-[#0b1440] text-sm
-                hover:bg-white/40
-                rounded-lg
-                transition
-              "
+              className="w-full flex items-center gap-3 text-[#0b1440] text-sm hover:bg-white/40 rounded-lg transition"
             >
               <IconBox src="/logout_icon.png" alt="Logout" />
               <span className="hidden group-hover:block whitespace-nowrap">
@@ -130,15 +119,29 @@ export default function My_Applications() {
                   <div
                     key={app.id}
                     className="
-                      grid grid-cols-1 sm:grid-cols-3 gap-2
-                      bg-white
-                      border border-[#2475AF]/50
-                      rounded-lg p-4 text-sm
+                      grid grid-cols-1 sm:grid-cols-3
+                      bg-white border border-[#2475AF]/50
+                      rounded-lg p-4 text-sm items-center
                     "
                   >
                     <div>{app.position}</div>
                     <div>{app.date}</div>
-                    <div className="font-medium">{app.status}</div>
+
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="font-medium">{app.status}</span>
+                      <button
+                        type="button"
+                        onClick={() => handleWithdrawClick(app.id)}
+                        className="
+                          px-3 py-1.5 rounded-md
+                          bg-red-600 text-white text-xs font-semibold
+                          hover:bg-red-700 active:scale-95
+                          transition
+                        "
+                      >
+                        Withdraw
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -147,9 +150,7 @@ export default function My_Applications() {
 
           {/* HELP */}
           <div className="bg-white rounded-xl border border-[#2475AF]/60 p-6 shadow mb-8">
-            <h2 className="font-semibold mb-2 text-[#0b1440]">
-              Help
-            </h2>
+            <h2 className="font-semibold mb-2 text-[#0b1440]">Help</h2>
             <p className="text-sm text-gray-700">
               If you have questions about your application, contact{" "}
               <span className="font-medium text-[#2475AF]">
@@ -158,12 +159,41 @@ export default function My_Applications() {
             </p>
           </div>
 
-          {/* FOOTER */}
           <div className="mt-auto text-center text-xs text-[#0b1440]/70">
             © 2026 AvantePH
           </div>
         </div>
       </div>
+
+      {/* CONFIRMATION MODAL */}
+      {showConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="bg-white rounded-xl w-full max-w-sm p-6 shadow-xl">
+            <h3 className="text-lg font-semibold text-[#0b1440] mb-3">
+              Withdraw Application
+            </h3>
+            <p className="text-sm text-gray-600 mb-6">
+              Are you sure you want to withdraw this application? This action
+              cannot be undone.
+            </p>
+
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={handleCancelWithdraw}
+                className="px-4 py-2 rounded-lg text-sm border border-gray-300 hover:bg-gray-100 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleConfirmWithdraw}
+                className="px-4 py-2 rounded-lg text-sm bg-red-600 text-white font-semibold hover:bg-red-700 transition"
+              >
+                Yes, Withdraw
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
