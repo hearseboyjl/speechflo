@@ -86,7 +86,7 @@ export default function Submit_Application() {
       <div className="relative z-20 max-w-5xl mx-auto">
         {/* BRAND TITLE */}
         <h1 className="text-2xl font-bold text-[#0b1440] mb-6">
-          AvantePH
+          My Profile
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
