@@ -15,7 +15,7 @@ export default function Login_Applicant() {
 
   function handleLogin(e) {
     e.preventDefault();
-    navigate("/submit-application");
+    navigate("/My_Profile");
   }
 
   return (
