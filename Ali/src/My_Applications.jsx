@@ -69,7 +69,7 @@ export default function My_Applications() {
 
           <div className="flex flex-col gap-3 px-3">
             <button
-              onClick={() => navigate("/old_applicant")}
+              onClick={() => navigate("/My_Profile")}
               className="flex items-center gap-3 text-[#0b1440] text-sm hover:bg-white/40 rounded-lg transition"
             >
               <IconBox src="/profile_icon.png" alt="My Profile" />
