@@ -6,7 +6,7 @@ import Confirm_Reset from "./Confirm_Reset";
 import Set_New_Password from "./Set_New_Password";
 import Submit_Application from "./Submit_Application";
 import My_Applications from "./My_Applications";
-import Old_Applicant from "./old_applicant";
+import My_Profile from "./My_Profile";
 
 export default function App() {
   return (
@@ -18,7 +18,7 @@ export default function App() {
       <Route path="/set-new-password" element={<Set_New_Password />} />
       <Route path="/submit-application" element={<Submit_Application />} />
       <Route path="/my_applications" element={<My_Applications />} />
-      <Route path="/old_applicant" element={<Old_Applicant />} />
+      <Route path="/my_profile" element={<My_Profile />} />
     </Routes>
   );
 }
