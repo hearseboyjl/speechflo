@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function My_Applications() {
   const navigate = useNavigate();
@@ -15,6 +15,13 @@ export default function My_Applications() {
 
   const [showConfirm, setShowConfirm] = useState(false);
   const [selectedAppId, setSelectedAppId] = useState(null);
+  const [userName, setUserName] = useState("");
+
+  // GET LOGGED IN USER NAME
+  useEffect(() => {
+    const name = localStorage.getItem("userName"); // saved during login/signup
+    if (name) setUserName(name);
+  }, []);
 
   const IconBox = ({ src, alt }) => (
     <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
@@ -82,7 +89,14 @@ export default function My_Applications() {
             </button>
           </div>
 
-          <div className="mt-auto px-3">
+          {/* USER GREETING + LOGOUT */}
+          <div className="mt-auto px-4 flex flex-col gap-2">
+            {/* Greeting */}
+            <div className="text-[#0b1440] text-xl text-center group-hover:text-left hidden group-hover:block">
+              Hello, <span className="font-semibold">{userName || "User"}</span>
+            </div>
+
+            {/* Logout */}
             <button
               onClick={() => navigate("/login-applicant")}
               className="w-full flex items-center gap-3 text-[#0b1440] text-sm hover:bg-white/40 rounded-lg transition"
