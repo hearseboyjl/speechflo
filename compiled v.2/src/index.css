@@ -1,0 +1,300 @@
+/* ================= TAILWIND (v4) ================= */
+@import "tailwindcss";
+
+/* ================= BASE LAYER FIXES ================= */
+@layer base {
+  body { overflow-x: hidden; }
+
+  img,
+  video,
+  canvas,
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* ================= GLOBAL SIZING ================= */
+html,
+body,
+#root {
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+/* ================= THEME TOKENS (LIGHT DEFAULTS) ================= */
+:root {
+  --sidebar-w: 96px;
+  --page-outer-gap: 24px;
+  --content-left-offset: calc(var(--sidebar-w) + var(--page-outer-gap));
+
+  /* Backgrounds */
+  --app-bg: linear-gradient(
+    to bottom right,
+    #abd7f4 0%,
+    #c4d6e3 48%,
+    #4a8fc1 100%
+  );
+
+  --app-bg-soft: linear-gradient(180deg, #ebf9ff 0%, #e1eaef 100%);
+
+  --app-bloom-1: radial-gradient(
+    1200px 800px at 8% 10%,
+    rgba(160, 200, 230, 0.25),
+    transparent 60%
+  );
+
+  --app-bloom-2: radial-gradient(
+    1000px 700px at 92% 20%,
+    rgba(150, 190, 220, 0.22),
+    transparent 55%
+  );
+
+  /* Text */
+  --title: #002853;
+  --text-main: #0f172a;
+  --text-muted: rgba(15, 23, 42, 0.65);
+
+  /* Surfaces */
+  --surface: rgba(255, 255, 255, 0.70);
+  --surface-strong: rgba(255, 255, 255, 0.82);
+  --surface-soft: rgba(255, 255, 255, 0.45);
+  --border-token: rgba(119, 188, 225, 0.95);
+
+  /* Sidebar */
+  --sidebar-surface: #77bce1;
+  --nav-active: rgba(255, 255, 255, 0.35);
+
+  /* KPI band */
+  --kpi-bg: #77bce1;
+
+  /* Focus ring */
+  --focus: rgba(47, 141, 205, 0.30);
+
+  /* Buttons */
+  --btn-primary-bg: #2f8dcd;
+  --btn-primary-text: #ffffff;
+
+  --btn-reject-bg: #ff4d4d;
+  --btn-reject-text: #ffffff;
+
+  /* Chips */
+  --chip-bg: #ffffff;
+  --chip-text: #1b6fb5;
+  --chip-border: rgba(47, 141, 205, 0.35);
+
+  /* Insight */
+  --insight-bg: #ffe08a;
+  --insight-border: #e0b400;
+  --insight-ring: rgba(224, 180, 0, 0.25);
+  --insight-text: #0f172a;
+
+  /* Status pills (light) */
+  --status-completed-bg: #dcfce7;
+  --status-completed-text: #065f46;
+  --status-completed-border: #86efac;
+
+  --status-processing-bg: #e0f2fe;
+  --status-processing-text: #075985;
+  --status-processing-border: #7dd3fc;
+
+  --status-pending-bg: #f1f5f9;
+  --status-pending-text: #1f2937;
+  --status-pending-border: #e2e8f0;
+
+  /* Shadows (light) */
+  --shadow-soft: 0 6px 16px rgba(15, 23, 42, 0.06);
+  --shadow-card: 0 10px 28px rgba(15, 23, 42, 0.10);
+  --shadow-strong: 0 18px 45px rgba(15, 23, 42, 0.14);
+
+  /* KPI-specific shadows (light) */
+  --kpi-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+  --kpi-tile-shadow: 0 10px 28px rgba(15, 23, 42, 0.10);
+}
+
+/* ================= THEME TOKENS (DARK OVERRIDES) ================= */
+/* Works if you toggle .dark on <html> (recommended) */
+html.dark,
+body.dark,
+#root.dark,
+:root.dark {
+  /* Backgrounds */
+  --app-bg: linear-gradient(
+    to bottom right,
+    #081428 0%,
+    #0c1c34 55%,
+    #102a4c 100%
+  );
+
+  --app-bg-soft: linear-gradient(180deg, #0c1c34 0%, #081428 100%);
+
+  --app-bloom-1: radial-gradient(
+    1200px 800px at 8% 10%,
+    rgba(80, 140, 220, 0.22),
+    transparent 60%
+  );
+
+  --app-bloom-2: radial-gradient(
+    1000px 700px at 92% 20%,
+    rgba(60, 180, 240, 0.14),
+    transparent 55%
+  );
+
+  /* Text */
+  --title: #eaf3ff;
+  --text-main: rgba(255, 255, 255, 0.92);
+  --text-muted: rgba(255, 255, 255, 0.70);
+
+  /* Surfaces */
+  --surface: rgba(12, 28, 52, 0.55);
+  --surface-strong: rgba(12, 28, 52, 0.78);
+  --surface-soft: rgba(12, 28, 52, 0.35);
+  --border-token: rgba(120, 180, 235, 0.22);
+
+  /* Sidebar */
+  --sidebar-surface: rgba(33, 84, 140, 0.55);
+  --nav-active: rgba(47, 141, 205, 0.22);
+
+  /* KPI band */
+  --kpi-bg: rgba(33, 84, 140, 0.55);
+
+  /* Focus ring */
+  --focus: rgba(125, 211, 252, 0.30);
+
+  /* Buttons */
+  --btn-primary-bg: rgba(33, 84, 140, 0.55);
+  --btn-primary-text: #ffffff;
+
+  --btn-reject-bg: rgba(220, 38, 38, 0.75);
+  --btn-reject-text: #ffffff;
+
+  /* Chips */
+  --chip-bg: rgba(56, 189, 248, 0.10);
+  --chip-text: rgba(186, 230, 253, 1);
+  --chip-border: rgba(125, 211, 252, 0.25);
+
+  /* Insight */
+  --insight-bg: rgba(251, 191, 36, 0.10);
+  --insight-border: rgba(252, 211, 77, 0.30);
+  --insight-ring: rgba(252, 211, 77, 0.15);
+  --insight-text: rgba(255, 255, 255, 0.92);
+
+  /* Status pills (dark) */
+  --status-completed-bg: rgba(16, 185, 129, 0.15);
+  --status-completed-text: rgba(167, 243, 208, 1);
+  --status-completed-border: rgba(52, 211, 153, 0.25);
+
+  --status-processing-bg: rgba(56, 189, 248, 0.15);
+  --status-processing-text: rgba(186, 230, 253, 1);
+  --status-processing-border: rgba(125, 211, 252, 0.25);
+
+  --status-pending-bg: rgba(255, 255, 255, 0.10);
+  --status-pending-text: rgba(255, 255, 255, 0.85);
+  --status-pending-border: rgba(255, 255, 255, 0.15);
+
+  /* Shadows (dark) */
+  --shadow-soft: 0 6px 16px rgba(0, 0, 0, 0.25);
+  --shadow-card: 0 10px 28px rgba(0, 0, 0, 0.35);
+  --shadow-strong: 0 18px 45px rgba(0, 0, 0, 0.45);
+
+  /* KPI shadows (dark) */
+  --kpi-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+  --kpi-tile-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+/* ================= GLOBAL BODY ================= */
+/* Use token gradients so the whole app actually flips with dark mode */
+body {
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text-main);
+  background: var(--app-bloom-1), var(--app-bloom-2), var(--app-bg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button { cursor: pointer; }
+
+/* ================= LAYOUT ================= */
+.layout-main {
+  padding: var(--page-outer-gap);
+  padding-left: var(--content-left-offset);
+}
+
+/* ================= TOKEN UTILITY CLASSES ================= */
+.bg-app { background: var(--app-bg); }
+.bg-app-soft { background: var(--app-bg-soft); }
+.bg-app-bloom {
+  background: var(--app-bloom-1), var(--app-bloom-2), var(--app-bg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.text-title { color: var(--title); }
+.text-main { color: var(--text-main); }
+.text-muted { color: var(--text-muted); }
+
+.bg-surface { background: var(--surface); }
+.bg-surface-strong { background: var(--surface-strong); }
+.bg-surface-soft { background: var(--surface-soft); }
+
+.border-token { border-color: var(--border-token); }
+
+.bg-sidebar { background: var(--sidebar-surface); }
+.bg-nav-active { background: var(--nav-active); }
+
+.bg-kpi { background: var(--kpi-bg); }
+
+/* Buttons */
+.bg-btn-primary { background: var(--btn-primary-bg); color: var(--btn-primary-text); }
+.bg-btn-reject  { background: var(--btn-reject-bg);  color: var(--btn-reject-text); }
+
+/* Chips */
+.bg-chip { background: var(--chip-bg); }
+.text-chip { color: var(--chip-text); }
+.border-chip { border-color: var(--chip-border); }
+
+/* Insight */
+.bg-insight { background: var(--insight-bg); }
+.border-insight { border-color: var(--insight-border); }
+.ring-insight { box-shadow: 0 0 0 1px var(--insight-ring); }
+.text-insight { color: var(--insight-text); }
+
+/* Status */
+.status-completed {
+  background: var(--status-completed-bg);
+  color: var(--status-completed-text);
+  border-color: var(--status-completed-border);
+}
+.status-processing {
+  background: var(--status-processing-bg);
+  color: var(--status-processing-text);
+  border-color: var(--status-processing-border);
+}
+.status-pending {
+  background: var(--status-pending-bg);
+  color: var(--status-pending-text);
+  border-color: var(--status-pending-border);
+}
+
+/* Shadows */
+.shadow-soft { box-shadow: var(--shadow-soft); }
+.shadow-card { box-shadow: var(--shadow-card); }
+.shadow-strong { box-shadow: var(--shadow-strong); }
+.shadow-kpi { box-shadow: var(--kpi-shadow); }
+.shadow-kpi-tile { box-shadow: var(--kpi-tile-shadow); }
+
+/* Focus */
+:where(input, select, textarea):focus { outline: none; }
+:where(input, select, textarea):focus-visible { box-shadow: 0 0 0 4px var(--focus); }
+
+/* Icons */
+.icon-light { filter: none; }
+html.dark .icon-dark {
+  filter: brightness(0) saturate(100%) invert(41%) sepia(79%) saturate(520%)
+    hue-rotate(180deg) brightness(96%) contrast(92%);
+}
