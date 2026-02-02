@@ -66,10 +66,11 @@ export default function InterviewHub() {
 
   const goToDetails = useCallback(
     (row) => {
-      navigate("/interview-details", { state: { interview: row } });
+      navigate("/recruiter/interview-details", { state: { interview: row } });
     },
     [navigate]
   );
+
 
   const cardCls = [
     "rounded-2xl",
@@ -159,7 +160,7 @@ export default function InterviewHub() {
 
               <button
                 type="button"
-                onClick={() => navigate("/upload-interview")}
+                onClick={() => navigate("/recruiter/upload-interview")}
                 className={primaryBtn}
               >
                 Upload New
