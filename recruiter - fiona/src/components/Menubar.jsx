@@ -11,11 +11,11 @@ import UserPfpIcon from "../assets/icons/userPfp.svg";
 import LogoutIcon from "../assets/icons/logout.svg";
 
 const navItems = [
-  { label: "Dashboard", to: "/dashboard", icon: DashboardIcon },
-  { label: "Interviews", to: "/interviewer-hub", icon: InterviewsIcon },
-  { label: "Analytics", to: "/analytics", icon: AnalyticsIcon },
-  { label: "Reports", to: "/reports", icon: ReportsIcon },
-  { label: "Settings", to: "/settings", icon: SettingsIcon },
+  { label: "Dashboard", to: "/recruiter/dashboard", icon: DashboardIcon },
+  { label: "Interviews", to: "/recruiter/interviewer-hub", icon: InterviewsIcon },
+  { label: "Analytics", to: "/recruiter/analytics", icon: AnalyticsIcon },
+  { label: "Reports", to: "/recruiter/reports", icon: ReportsIcon },
+  { label: "Settings", to: "/recruiter/settings", icon: SettingsIcon },
 ];
 
 export default function Menubar() {
@@ -31,11 +31,9 @@ export default function Menubar() {
   const iconWrap = "h-10 w-10 grid place-items-center";
   const iconSize = "h-5 w-5";
 
-  const iconCls = [
-    iconSize,
-    "icon-light icon-dark",
-    "opacity-90 group-hover:opacity-100 transition",
-  ].join(" ");
+  const iconCls = [iconSize, "icon-light icon-dark", "opacity-90 group-hover:opacity-100 transition"].join(
+    " "
+  );
 
   return (
     <aside
@@ -76,9 +74,7 @@ export default function Menubar() {
                       expanded
                         ? "flex items-center gap-3 px-4 py-3.5"
                         : "flex items-center justify-center px-0 py-3.5",
-                      isActive
-                        ? "bg-nav-active"
-                        : "hover:bg-white/20",
+                      isActive ? "bg-nav-active" : "hover:bg-white/20",
                     ].join(" ")
                   }
                 >
